@@ -2,7 +2,7 @@ package main
 
 import (
 	"fmt"
-	sdk "sigpair-admin"
+	sdk "github.com/silence-laboratories/sigpair-admin"
 )
 
 func main() {
