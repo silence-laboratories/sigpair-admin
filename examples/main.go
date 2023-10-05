@@ -7,7 +7,7 @@ import (
 
 func main() {
 	client := sdk.NewClient("http://localhost:8080", "SUPER_SECRET_ADMIN_TOKEN")
-	uid, err := client.CreateUser("sdf")
+	uid, err := client.CreateUser("nick-szabo")
 	if err != nil {
 		fmt.Printf("%s", err)
 		return
