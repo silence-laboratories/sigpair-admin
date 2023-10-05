@@ -1,7 +1,6 @@
 package sigpairadmin
 
 import (
-	// "encoding/json"
 	"bytes"
 	"encoding/json"
 	"fmt"
@@ -32,6 +31,7 @@ type CreateUserRes struct {
 	UserId int32 `json:"user_id"`
 }
 
+// NewClient creates a new client for the given base-url and admin-token
 func NewClient(baseUrl string, adminToken string) *Client {
 	return &Client{
 		BaseUrl:    baseUrl,
@@ -63,6 +63,9 @@ func (c *Client) createPostRequest(route string, jsonData []byte) ([]byte, error
 	return io.ReadAll(res.Body)
 }
 
+// CreateUser creates a new user with the given name
+//
+//	Returns the `UserId` of the created user
 func (c *Client) CreateUser(userName string) (UserId, error) {
 	payload := CreateUserPayload{
 		Name: userName,
@@ -84,6 +87,14 @@ func (c *Client) CreateUser(userName string) (UserId, error) {
 	return response.UserId, nil
 }
 
+// GenUserToken generates a new user token for the given user-id and lifetime (seconds)
+//
+// Params:
+//   - userId: the id of the user to generate the token for
+//   - lifetime: the lifetime of the token in seconds
+//
+// # Returns:
+//   - the generated user-token
 func (c *Client) GenUserToken(userId UserId, lifetime uint32) (string, error) {
 	payload := UserTokenPayload{
 		UserId:   userId,
